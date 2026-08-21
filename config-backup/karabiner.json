@@ -1,0 +1,60 @@
+{
+  "profiles": [
+    {
+      "name": "Default profile",
+      "selected": true,
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "Ctrl/Cmd 互换：物理左 Ctrl = 逻辑 Command（点按切换中英，按住为 Cmd 组合键）；物理左 Command = 逻辑左 Ctrl",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_command", "lazy": true }],
+                "to_if_alone": [{ "key_code": "right_control" }]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "left_command",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "left_control" }]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_command",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "right_control" }]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "right_control",
+                  "modifiers": { "optional": ["any"] }
+                },
+                "to": [{ "key_code": "right_command" }]
+              }
+            ]
+          }
+        ]
+      },
+      "parameters": {
+        "basic.simultaneous_threshold_milliseconds": 50,
+        "basic.to_if_alone_timeout_milliseconds": 1000,
+        "basic.to_if_held_down_threshold_milliseconds": 500
+      },
+      "virtual_hid_keyboard": {
+        "country_code": 0,
+        "keyboard_type": "ansi",
+        "keyboard_type_v2": "ansi"
+      }
+    }
+  ]
+}

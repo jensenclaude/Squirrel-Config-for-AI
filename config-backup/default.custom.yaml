@@ -1,0 +1,26 @@
+# Rx: iDvel/rime-ice:others/recipes/config:schema=double_pinyin_flypy
+patch:
+  schema_list:
+    - schema: double_pinyin_flypy
+
+  ascii_composer/switch_key/+:
+    Caps_Lock: noop
+    # 中英切换：点按左 Command（Karabiner 合成右 Ctrl 单击，见 ~/.config/karabiner/karabiner.json）
+    # Super_L 不可直接用：Squirrel 不把 Cmd+字母 转发给 librime，Cmd+C/V 会误触发切换
+    # F18 合成键不可用：终端（iTerm2 等）绕过输入法直接处理功能键，会漏出 字符
+    Super_L: noop  # 显式 noop 兜底（Karabiner lazy 透传按住时的 Cmd 松开，防止组合键误切换）
+    Super_R: noop
+    Shift_L: commit_code
+    Shift_R: noop
+    Control_L: noop
+    Control_R: commit_code  # 右 Ctrl 单击切换中英（MacBook 无物理右 Ctrl，不会误触）
+
+  switcher:
+    caption: 输入法切换
+
+  menu/page_size: 9
+
+  key_binder/bindings/+:
+    # 翻页 , .
+    - { when: has_menu, accept: comma, send: Page_Up }
+    - { when: has_menu, accept: period, send: Page_Down }
