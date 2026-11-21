@@ -91,9 +91,9 @@ git clone <本仓库地址> ./Squirrel-Config-for-AI
 
 # 把本仓库的 Rime 配置放到 ~/Library/Rime/ 下
 cd Squirrel-Config-for-AI
-cp config-backup/default.custom.yaml \
-   config-backup/double_pinyin_flypy.custom.yaml \
-   config-backup/squirrel.custom.yaml \
+cp Rime/default.custom.yaml \
+   Rime/double_pinyin_flypy.custom.yaml \
+   Rime/squirrel.custom.yaml \
    ~/Library/Rime/
 ```
 
@@ -129,7 +129,7 @@ brew install --cask karabiner-elements
 
 ```bash
 mkdir -p ~/.config/karabiner
-cp Squirrel-Config-for-AI/config-backup/karabiner.json ~/.config/karabiner/karabiner.json
+cp Squirrel-Config-for-AI/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
 ```
 
 ⚠️ 这是**整体覆盖**——如果这台 Mac 上已有自定义 Karabiner 规则，先备份原文件；然后启动 Karabiner-Elements：
