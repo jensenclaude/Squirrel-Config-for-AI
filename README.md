@@ -54,12 +54,12 @@ brew install --cask squirrel-app
 安装双拼的步骤大概是：
 
 ```shell
-# 1. 安装 plum
-cd ~
+# 1. 安装 plum，建议 clone 到 Rime/ 目录下，统一管理
+cd ~/Library/Rime/
 git clone https://github.com/rime/plum.git plum
 
 # 2. 安装雾凇拼音到默认客户端（Squirrel）：
-cd ~/plum
+cd plum
 bash rime-install iDvel/rime-ice
 
 # 3. 双拼用户额外执行，替换「double_pinyin_flypy」为你使用的方案：
