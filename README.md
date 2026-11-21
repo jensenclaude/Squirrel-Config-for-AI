@@ -15,12 +15,12 @@ Karabiner 被配置为：
 
 ## 相关文件
 
-| 配置谁       | 文件                              | 目标路径（实际路径）                                     | 作用                                                                                   |
-| --------- | ------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
-| Karabiner | karabiner.json                  | ~/.config/karabiner/karabiner.json             | 物理左 Ctrl 单击 -> Karabiner 合成「右 Ctrl 单击」；<br>物理左 Ctrl 按住 -> Karabiner lazy 发送左 Command |
-| Rime      | default.custom.yaml             | ~/Library/Rime/default.custom.yaml             | 设置 右 Ctrl 为中/英文切换键                                                                   |
-| Rime      | double_pinyin_flypy.custom.yaml | ~/Library/Rime/double_pinyin_flypy.custom.yaml | 输入法默认英文                                                                              |
-| Rime      | squirrel.custom.yaml            | ~/Library/Rime/squirrel.custom.yaml            | 主题配色（与本次改造无关，一并备份）                                                                   |
+| 配置谁                | 文件                                   | 目标路径（实际路径）                                     | 作用                                                                                   |
+| ------------------ | ------------------------------------ | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Karabiner-Elements | karabiner/karabiner.json             | ~/.config/karabiner/karabiner.json             | 物理左 Ctrl 单击 -> Karabiner 合成「右 Ctrl 单击」；<br>物理左 Ctrl 按住 -> Karabiner lazy 发送左 Command |
+| Rime               | Rime/default.custom.yaml             | ~/Library/Rime/default.custom.yaml             | 设置 右 Ctrl 为中/英文切换键；<br>加入万象语法模型（如果不想要可以去掉）                                           |
+| Rime               | Rime/double_pinyin_flypy.custom.yaml | ~/Library/Rime/double_pinyin_flypy.custom.yaml | 输入法默认英文                                                                              |
+| Rime               | Rime/squirrel.custom.yaml            | ~/Library/Rime/squirrel.custom.yaml            | 主题配色（与本次改造无关，一并备份）                                                                   |
 
 ## 从零配置指南（全新 Mac）
 
@@ -132,10 +132,11 @@ mkdir -p ~/.config/karabiner
 cp Squirrel-Config-for-AI/karabiner/karabiner.json ~/.config/karabiner/karabiner.json
 ```
 
-⚠️ 这是**整体覆盖**——如果这台 Mac 上已有自定义 Karabiner 规则，先备份原文件；然后启动 Karabiner-Elements：
+⚠️ 这是**整体覆盖**——如果这台 Mac 上已有自定义 Karabiner 规则，先备份原文件；然后重启 Karabiner-Elements：
 
 ```bash
-pkill -x karabiner_console_user_server   # 会自动重启并加载新配置
+pkill -x karabiner_console_user_server # 会自动重启并加载新配置
+# 或者直接在 Karabiner-Elements 的 Quit, Restart 界面重启
 ```
 
 ### 第 7 步：端到端验证
@@ -160,6 +161,8 @@ pkill -x karabiner_console_user_server   # 会自动重启并加载新配置
 
 ### 旧 Mac 导出
 
+本仓库也提供了一个 `sync/<id>` 目录，不定时更新。
+
 ```bash
 "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --sync
 # 或菜单栏输入法图标 → 同步用户数据，效果一样
@@ -170,21 +173,21 @@ pkill -x karabiner_console_user_server   # 会自动重启并加载新配置
 - `rime_ice.userdb.txt` —— 打字习惯的**可读文本**（每行 `拼音<TAB>词	c=次数 d=距上次天数 t=时刻`），二进制 userdb 被导出成文本，天然跨机器、跨版本；
 - `custom_phrase.txt` —— 自定义短语快照。
 
-把整个 `~/Library/Rime/sync/` 目录搬到新 Mac。
+把 `~/Library/Rime/sync/<id>/` 目录搬到新 Mac。
 
 ### 新 Mac 导入
 
 ```bash
 mkdir -p ~/Library/Rime/sync
-# 把旧机的 sync/<id>/ 目录放进 ~/Library/Rime/sync/ 下
-mv /path/to/旧机快照/sync/<id>/ ~/Library/Rime/sync/
+# 把旧机的 sync/<id>/ 目录放到 ~/Library/Rime/sync/ 下
+mv sync/<id>/ ~/Library/Rime/sync/
 "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --sync
 ```
 
 再次执行 sync 时，Rime 发现 sync 下有「别的机器的快照」（installation_id 不同），会把其中的词条**合并**进本机 userdb——不是覆盖，两台机器的习惯可以叠加。然后手动补上自定义短语（sync 快照里的 txt 不会自动合并）：
 
 ```bash
-cp /path/to/旧机快照/custom_phrase.txt ~/Library/Rime/
+cp custom_phrase.txt ~/Library/Rime/
 "/Library/Input Methods/Squirrel.app/Contents/MacOS/Squirrel" --reload
 ```
 
@@ -204,7 +207,7 @@ cp /path/to/旧机快照/custom_phrase.txt ~/Library/Rime/
 
 ## 维护备忘
 
-- 改 karabiner.json 后不会自动热重载：必须 `pkill -x karabiner_console_user_server`（会自动重启并加载新配置）；
+- 改 karabiner.json 后不会自动热重载：必须重启；
 - `ascii_composer/switch_key` 的切换只在「修饰键单独按下再单独松开」时触发，按住期间敲任何键都会取消——这是 Command 快捷键不误触发的根本保证；
 - 如果不想要左 Shift 切换：`default.custom.yaml` 里把 `Shift_L: commit_code` 改成 `noop`；
 - 如果默认想中文：`double_pinyin_flypy.custom.yaml` 里把 `reset: 1` 改成 `reset: 0`（如果删掉该行代表记住上次状态）。

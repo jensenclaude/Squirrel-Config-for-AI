@@ -1,0 +1,15 @@
+# Rime user dictionary
+#@/db_name	terra_pinyin
+#@/db_type	userdb
+#@/rime_version	1.16.0
+#@/tick	7
+#@/user_id	966cf6e6-8976-4007-afb5-455672b9a00b
+de5 	的	c=1 d=0.99005 t=7
+ji4 xu4 	繼續	c=1 d=1 t=7
+pei4 se4 	配色	c=1 d=0.995012 t=7
+shi2 xian4 	實現	c=1 d=0.97531 t=7
+ti2 qu3 	提取	c=1 d=0.980199 t=7
+wei2 le5 jiang1 	爲了將	c=0 d=0.0965605 t=7
+wei2 le5 jiang1 wo3 men5 de5 	爲了將我們的	c=1 d=0.970446 t=7
+wo3 men5 de5 	我們的	c=0 d=0.0965605 t=7
+zhe4 li3 mian4 	這裏面	c=1 d=0.985112 t=7

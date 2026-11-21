@@ -1,0 +1,4 @@
+# ascii_mode 默认为英文（每次切换到此方案时重置）；0 = 默认中文
+# 中英切换方式：点按左 Command（Karabiner 合成右 Ctrl 单击）或左 Shift，见 default.custom.yaml
+patch:
+  switches/@0/reset: 1
